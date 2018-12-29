@@ -8,10 +8,9 @@ module.exports = function override(config, env) {
   // babel-plugin-import
   config = injectBabelPlugin(['import', {
     libraryName: 'antd-mobile',
-    //style: 'css',
     style: true, // use less for customized theme
   }], config);
-
+  config = injectBabelPlugin(['@babel/plugin-proposal-decorators', { "legacy": true }], config)
   // customize theme
   config.module.rules[2].oneOf.unshift(
     {

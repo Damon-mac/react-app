@@ -40,12 +40,12 @@ app.get('/', function(req, res) {
 
 app.get('/data', function(req, res) {
   // 查找数据, 第一个参数是过滤的对象
-  User.find({user: 'yinghua'}, (err, doc) => {
+  User.findOne({user: 'yinghua'}, (err, doc) => {
     res.json(doc)
   })
   // res.json({name: 'mac', type: 'IT'})
 })
 
 app.listen(9003, function(req, res) {
-  console.log('server run on localhost:3000')
+  console.log('server run on localhost:9003')
 })

@@ -18,19 +18,8 @@ import 'antd-mobile/dist/antd-mobile.css';
 
 const store = createStore(reducers, compose(
   applyMiddleware(thunk),
-  window.devToolsExtension?window.devToolsExtension():f=>f
+  window.__REDUX_DEVTOOLS_EXTENSION__?window.__REDUX_DEVTOOLS_EXTENSION__():f=>f
 ))
-
-// class Test extends React.Component{
-// 	constructor(props) {
-// 		super(props)
-
-// 	}
-// 	render(){
-// 		console.log(this.props)
-// 		return <h2>测试组件 {this.props.match.params.location}</h2>
-// 	}
-// }
 
 // 登录
 // 	没有登录信息 统一跳转login
