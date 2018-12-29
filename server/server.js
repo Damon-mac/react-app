@@ -46,6 +46,6 @@ app.get('/data', function(req, res) {
   // res.json({name: 'mac', type: 'IT'})
 })
 
-app.listen(3000, function(req, res) {
+app.listen(9003, function(req, res) {
   console.log('server run on localhost:3000')
 })
