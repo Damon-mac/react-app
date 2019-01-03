@@ -1,6 +1,15 @@
 import React, { Component } from 'react'
 import Logo from '../../component/logo/logo.js'
 import {List, InputItem, Radio, WhiteSpace, Button} from 'antd-mobile'
+import { connect } from 'react-redux'
+import { register } from "../../redux/user.redux"
+import './register.less'
+
+@connect(
+  state => state.user,
+  { register }
+)
+
 class Register extends Component{
   constructor(props) {
     super(props)
@@ -11,11 +20,15 @@ class Register extends Component{
       type: 'genius'
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleRegister = this.handleRegister.bind(this)
   }
   handleChange(key, val) {
     this.setState({
       [key]: val
     })
+  }
+  handleRegister() {
+    this.props.register(this.state)
   }
   render() {
     const RadioItem = Radio.RadioItem
@@ -23,6 +36,7 @@ class Register extends Component{
       <div>
         <Logo></Logo>
         <List>
+          {this.props.msg ? <p className='error-msg'>{this.props.msg}</p> : null}
           <InputItem
             onChange={v=>this.handleChange('user',v)}
           >用户名</InputItem>
@@ -50,7 +64,7 @@ class Register extends Component{
             BOSS
           </RadioItem>
           <WhiteSpace />
-          <Button type='primary'>注册 </Button>
+          <Button type='primary' onClick={this.handleRegister}>注册 </Button>
         </List>
       </div>
     )
