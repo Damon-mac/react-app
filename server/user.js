@@ -5,11 +5,11 @@ const model = require('./model')
 const User = model.getModel('user')
 // 内部筛选条件, 返回信息不显示密码和版本号
 const _fileter = {'pwd': 0, '__v': 0}
-
+// post请求参数是通过body来获取, get请求是通过query来获取
 Router.get('/list', function(req, res) {
-  // User.remove({}, function(e,d) {})
-  User.find({}, function(err, doc) {
-    return res.json(doc)
+  const { type } = req.query
+  User.find({type}, function(err, doc) {
+    return res.json({code: 0, data: doc})
   })
 })
 Router.post('/register', function(req, res) {
