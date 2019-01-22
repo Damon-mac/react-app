@@ -3,13 +3,36 @@ const Router = express.Router()
 const utility = require('utility')
 const model = require('./model')
 const User = model.getModel('user')
+const Chat = model.getModel('chat')
 // 内部筛选条件, 返回信息不显示密码和版本号
 const _fileter = {'pwd': 0, '__v': 0}
+// 清空聊天记录
+// Chat.remove({}, function(e,d) {
+//
+// })
 // post请求参数是通过body来获取, get请求是通过query来获取
 Router.get('/list', function(req, res) {
   const { type } = req.query
   User.find({type}, function(err, doc) {
     return res.json({code: 0, data: doc})
+  })
+})
+Router.get('/getmsglist', function(req, res) {
+  const user = req.cookies.userid
+  User.find({}, (e, userdoc) => {
+    let users = {}
+    userdoc.forEach(v => {
+      users[v._id] = {name: v.user, avatar: v.avatar}
+    })
+    Chat.find({'$or': [{from: user}, {to: user}]}, (err, doc) => {
+      if(!err) {
+        return res.json({
+          code: 0,
+          msgs: doc,
+          users
+        })
+      }
+    })
   })
 })
 Router.post('/register', function(req, res) {
