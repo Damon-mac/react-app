@@ -40,14 +40,14 @@ class BossInfo extends Component{
           }}
         />
         <List>
-          <InputItem onBlur={v => this.handleChange('title',v)}>招聘职位</InputItem>
-          <InputItem onBlur={v => this.handleChange('company',v)}>公司名称</InputItem>
-          <InputItem onBlur={v => this.handleChange('money',v)}>职位薪资</InputItem>
+          <InputItem onChange={v => this.handleChange('title',v)}>招聘职位</InputItem>
+          <InputItem onChange={v => this.handleChange('company',v)}>公司名称</InputItem>
+          <InputItem onChange={v => this.handleChange('money',v)}>职位薪资</InputItem>
           <TextareaItem
             rows={3}
             autoHeight
             title='职位要求'
-            onBlur={v => this.handleChange('desc',v)}/>
+            onChange={v => this.handleChange('desc',v)}/>
           <Button
             onClick={()=>{
               this.props.update(this.state)

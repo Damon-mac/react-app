@@ -41,17 +41,17 @@ class Register extends Component{
         <List>
           {this.props.msg ? <p className='error-msg'>{this.props.msg}</p> : null}
           <InputItem
-            onBlur={v=>this.handleChange('user',v)}
+            onChange={v=>this.handleChange('user',v)}
           >用户名</InputItem>
           <WhiteSpace />
           <InputItem
             type='password'
-            onBlur={v=>this.handleChange('pwd',v)}
+            onChange={v=>this.handleChange('pwd',v)}
           >密码</InputItem>
           <WhiteSpace />
           <InputItem
             type='password'
-            onBlur={v=>this.handleChange('repeatpwd',v)}
+            onChange={v=>this.handleChange('repeatpwd',v)}
           >确认密码</InputItem>
           <WhiteSpace />
           <RadioItem

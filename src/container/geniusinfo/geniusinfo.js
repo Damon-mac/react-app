@@ -38,12 +38,12 @@ class Geniusinfo extends Component{
           }}
         />
         <List>
-          <InputItem onBlur={v => this.handleChange('title',v)}>求职岗位</InputItem>
+          <InputItem onChange={v => this.handleChange('title',v)}>求职岗位</InputItem>
           <TextareaItem
             rows={3}
             autoHeight
             title='个人简介'
-            onBlur={v => this.handleChange('desc',v)}/>
+            onChange={v => this.handleChange('desc',v)}/>
           <Button
             onClick={()=>{
               this.props.update(this.state)

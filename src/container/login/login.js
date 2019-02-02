@@ -41,11 +41,11 @@ class Login extends Component{
           <List>
             {this.props.msg ? <p className='error-msg'>{this.props.msg}</p> : null}
             <InputItem
-              onBlur={v => this.handleChange('user',v)}
+              onChange={v => this.handleChange('user',v)}
             >用户</InputItem>
             <WhiteSpace />
             <InputItem
-              onBlur={v=>this.handleChange('pwd',v)}
+              onChange={v=>this.handleChange('pwd',v)}
               type='password'
             >密码</InputItem>
           </List>

@@ -96,7 +96,7 @@ class Chat extends React.Component{
             <InputItem
               placeholder='请输入'
               value={this.state.text}
-              onBlur={v=>{
+              onChange={v=>{
                 this.setState({text: v})
               }}
               extra={
