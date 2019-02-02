@@ -2,13 +2,14 @@ import React from 'react'
 import { List, InputItem, NavBar, Icon, Grid } from 'antd-mobile'
 import './chat.less'
 import { connect } from 'react-redux'
-import { getMsgList, sendMsg, recvMsg } from "../../redux/chat.redux";
+import { getMsgList, sendMsg, recvMsg, readMsg } from "../../redux/chat.redux";
 import { getChatId } from '../../util'
+import QueueAnim from 'rc-queue-anim'
 
 
 @connect(
   state => state,
-  {getMsgList, sendMsg, recvMsg}
+  {getMsgList, sendMsg, recvMsg, readMsg}
 )
 class Chat extends React.Component{
   constructor(props){
@@ -32,6 +33,10 @@ class Chat extends React.Component{
     //   })
     // })
   }
+  componentWillUnmount() {
+    const to = this.props.match.params.user
+    this.props.readMsg(to)
+  }
   fixCarousel() {
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'))
@@ -43,12 +48,13 @@ class Chat extends React.Component{
     const from = this.props.user._id
     const to = this.props.match.params.user
     const msg = this.state.text
+    console.log(from)
     this.props.sendMsg({from, to, msg})
     this.setState({text: ''})
 
   }
   render() {
-    const emoji = '😀 😁 😂 🤣 😃 😄 😅 😆 😉 😊 😋 😎 😍 😘 🥰 😗 😙 😚 ☺️ 🙂 🤗 🤩 🤔 🤨 😐 😑 😶 🙄 😏 😣 😥 😮 🤐 😯 😪 😫 😴 😌 😛 😜 😝 🤤 😒 😓 😔 😕 🙃 🤑 😲 ☹️ 🙁 😖 😞 😟 😤 😢 😭 😦 😧 😨 😩 🤯 😬 😰 😱 🥵 🥶 😳 🤪 😵 😡 😠 🤬 😷 🤒 🤕 🤢 🤮 🤧 😇 🤠 🤡 🥳 🥴 🥺 🤥 🤫 🤭 🧐 🤓 😈 👿 👹 👺 💀 👻 👽 🤖 💩 😺 😸 😹 😻 😼 😽 🙀 😿 😾'
+    const emoji = '😀 😁 😂 🤣 😃 😄 😅 😆 😉 😊 😋 😎 😍 😘 😗 😙 😚 ☺️ 🙂 🤗 🤩 🤔 🤨 😐 😑 😶 🙄 😏 😣 😥 😮 🤐 😯 😪 😫 😴 😌 😛 😜 😝 🤤 😒 😓 😔 😕 🙃 🤑 😲 ☹️ 🙁 😖 😞 😟 😤 😢 😭 😦 😧 😨 😩 🤯 😬 😰 😱 🥵 🥶 😳 🤪 😵 😡 😠 🤬 😷 🤒 🤕 🤢 🤮 🤧 😇 🤠 🤡 🥳 🥴 🥺 🤥 🤫 🤭 🧐 🤓 😈 👿 👹 👺 💀 👻 👽 🤖 💩 😺 😸 😹 😻 😼 😽 🙀 😿 😾'
                   .split(' ')
                   .filter(v => v)
                   .map(v => ({text: v}))
@@ -68,27 +74,29 @@ class Chat extends React.Component{
           mode='dark'>
           {users[userid].name}
         </NavBar>
-        {chatmsgs.map((v) => {
-          const avatar = require(`../img/${users[v.from].avatar}.png`)
-          return v.from === userid ? (
-            <List key={v._id}>
-              <Item thumb={avatar}>{v.content}</Item>
-            </List>
-          ) : (
-            <List key={v._id}>
-              <Item
-                extra={<img src={avatar}/>}
-                className='chat-me'
-              >{v.content}</Item>
-            </List>
-          )
-        })}
+        <QueueAnim type={'scale'} delay={100}>
+          {chatmsgs.map((v) => {
+            const avatar = require(`../img/${users[v.from].avatar}.png`)
+            return v.from === userid ? (
+              <List key={v._id}>
+                <Item thumb={avatar}>{v.content}</Item>
+              </List>
+            ) : (
+              <List key={v._id}>
+                <Item
+                  extra={<img src={avatar}/>}
+                  className='chat-me'
+                >{v.content}</Item>
+              </List>
+            )
+          })}
+        </QueueAnim>
         <div className='stick-footer'>
           <List>
             <InputItem
               placeholder='请输入'
               value={this.state.text}
-              onChange={v=>{
+              onBlur={v=>{
                 this.setState({text: v})
               }}
               extra={
