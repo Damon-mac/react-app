@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 import { loadData } from '../../redux/user.redux'
@@ -10,7 +10,7 @@ import { connect } from 'react-redux'
   {loadData}
 )
 
-class AuthRoute extends Component{
+class AuthRoute extends React.Component{
   componentDidMount() {
     const publicList = ['/login', '/register']
     const pathname = this.props.location.pathname

@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import { Result, List, Brief, WhiteSpace, Modal } from 'antd-mobile'
+import { Result, List, WhiteSpace, Modal } from 'antd-mobile'
 import browserCookie from 'browser-cookies'
 import {logoutSubmit} from '../../redux/user.redux'
 import {Redirect} from 'react-router-dom'
@@ -10,7 +10,7 @@ import {Redirect} from 'react-router-dom'
   {logoutSubmit}
 )
 
-class User extends Component{
+class User extends React.Component{
   constructor(props){
     super(props)
     this.logout = this.logout.bind(this)

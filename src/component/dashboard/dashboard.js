@@ -56,11 +56,11 @@ class Dashboard extends Component{
         component:User
       }
     ]
-    const page = navList.find(v=>v.path === pathname)
+    const page = navList.find(v=>v.path === pathname) || (!navList[0].hide && navList[0]) || (!navList[1].hide && navList[1])
     // 为了让动画生效, 只渲染一个Route, 根据当前的path决定组件
     return (
       <div>
-        <NavBar className='fixd-header' mode='dard'>{navList.find(v=>v.path === pathname).title}</NavBar>
+        <NavBar className='fixd-header' mode='dard'>{page.title}</NavBar>
         <div style={{paddingTop:45}}>
           <Route key={page.path} path={page.path} component={page.component}/>
         </div>
