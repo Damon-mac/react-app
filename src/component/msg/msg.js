@@ -1,3 +1,10 @@
+/*
+ * @Author: zhuwd
+ * @Date: 2019-02-02 21:00:01
+ * @LastEditors: zhuwd
+ * @LastEditTime: 2020-05-13 10:45:30
+ * @FilePath: /react-app/src/component/msg/msg.js
+ */
 import React from 'react'
 import { List, Badge } from 'antd-mobile'
 import { connect } from 'react-redux'
@@ -27,6 +34,7 @@ class Msg extends React.Component{
       const b_last = this.getLastItem(b).create_time
       return b_last - a_last
     })
+    console.log(chatList)
     return (
       <div>
         <List>

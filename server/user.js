@@ -6,10 +6,6 @@ const User = model.getModel('user')
 const Chat = model.getModel('chat')
 // 内部筛选条件, 返回信息不显示密码和版本号
 const _fileter = {'pwd': 0, '__v': 0}
-// 清空聊天记录
-// Chat.remove({chatid: '5c510ea01c9422182b69822b_'}, function(e,d) {
-//
-// })
 // post请求参数是通过body来获取, get请求是通过query来获取
 Router.get('/list', function(req, res) {
   const { type } = req.query
